@@ -16,6 +16,26 @@
         }
     }
 
+    if(isset($_POST['actualizar'])){
+        $id = $_GET['id'];
+        $titulo = $_POST['titulo'];
+        $descripcion = $_POST['descripcion'];
+
+        $query = "UPDATE tareas set titulo='$titulo', descripcion = '$descripcion' WHERE id=$id";
+
+        mysqli_query($conn,$query);
+
+        $_SESSION['mensaje'] = "Se Actualizo Correctamente";
+        $_SESSION['tipo_mensaje'] = 'dark';
+
+        header("Location: index.php");
+
+        // echo $id;
+        // echo $titulo;
+        // echo $descripcion;
+        // echo "YES";
+    }
+
 ?>
 
 <?php include("includes/header.php")?>
@@ -26,7 +46,7 @@
     <div class="row">
         <div class="col-md-4 mx-auto">
             <div class="card card-body">
-                <form action="">
+                <form action="edit.php?id=<?php echo $_GET['id']; ?>" method="POST">
                     <div class="form-group">
                         <input type="text" name="titulo" value="<?php echo $titulo;?>"class="form-control" placeholder="Actualizacion de Titulo">
                     </div>
@@ -35,7 +55,7 @@
                         <textarea name="descripcion" rows="2" placeholder="Actualizacion de Descripcion"><?php echo $descripcion;?></textarea>
                     </div>
 
-                    <button class="btn btn-success" name="Actualizar">
+                    <button class="btn btn-success" name="actualizar">
                         Actualizar
                     </button>
                     
